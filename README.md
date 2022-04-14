@@ -46,7 +46,7 @@ Tok i bruk det jeg hadde liggende tilgjengelig hjemme, og har naturligvis valgt 
 - GraphicsMagick > 1.3.35 (2020-02-23)
 
 #### Ytterlige oppsett
-Til dette oppsettet er fokuset å gjøre det så enkelt som mulig å betjene PiBoCa med iPhone for å fyre av fotograferingen. Med hjelp av Snarveier/Shortcuts, denne delen . Denne biten kan 
+Til dette oppsettet er fokuset å gjøre det så enkelt som mulig å betjene PiBoCa med iPhone for å fyre av fotograferingen, med hjelp av Snarveier/Shortcuts. Utover dette står man fritt til å gjøre tilpasninger etter behov.
 
 - Kablet eller WiFi tilkobling
 - Kamera stativ

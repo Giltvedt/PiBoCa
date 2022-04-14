@@ -1,0 +1,1 @@
+Mappe med fotografier fra gPhoto2 lagres her, organiseres etter `YYYY-MM`.

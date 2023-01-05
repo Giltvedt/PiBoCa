@@ -7,7 +7,7 @@
 # 
 # Koden er primitiv og arbeidet er pågående, målet er å lære mer av bash skripting.
 # 
-# Variabler for innstillinger øverst og prosedyrer i 'else if statements' i bunn
+# Variabler for innstillinger øverst og prosedyrer i functions med argumenter fra 'else if statements' i bunn.
 
 # Filbaner
 basePATH=$HOME"/PiBoCa"
@@ -80,7 +80,7 @@ photoShoot() {
 	# Kommando og argument for å ta bilde, kopier til tmp og lag skalert blå tint versjon til sammenligning for neste bilde.
 	$gphotoCONFIG --filename $gpFileName-$1$imgPREFIX > /dev/null 2>&1 && \
 	lastFILE=$(find $imgdataPATH -type f -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1) && \
-	gm convert -geometry $gmSCALE -modulate $gmMODULATE -colorize $gmLASTcolor $lastFILE $tmpPATH/$1-$imgLAST
+	gm convert -geometry $gmSCALE -modulate $gmMODULATE -colorize $gmLASTcolor $lastFILE $tmpPATH/$1-$imgLAST && \
 	cat $lastFILE
 
 	# Linje 1 - gPhoto2: Skyt foto og lagre i bildemappe, etter dagens år og måned 'YYYY-MM'.

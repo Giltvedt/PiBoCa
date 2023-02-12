@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# PiBoCa (Pi Body Camera) v2022-04-14 https://github.com/Giltvedt/PiBoCa
+# PiBoCa (Pi Body Camera) v2023-02-12 https://github.com/Giltvedt/PiBoCa
 #
-# Et lite prosjekt med kamera tilkoblet Raspberry Pi med gPhoto2 og behandling med GraphicsMagick.
-# Styrt fra iPhone-appen Snarveier (Shortcuts).
+# A small camera project connected to Raspberry Pi using gPhoto2 and processed with GraphicsMagick
+# Controlled from the iPhone app Shortcuts.
 # 
-# Koden er primitiv og arbeidet er pågående, målet er å lære mer av bash skripting.
+# The code is currently a bit primitive due to limited knowledge of bash scripting, but the most important thing is that it works for its intended purpose. January 2023 I started using ChatGPT to help improve my programming and scripting skills. It has undoubtedly made things easier to learn, increase knowledge, get new ideas and overcome obstacles. The motivation to continue is significantly greater now than when the project was last started. The contrast between googling for vague answers to having someone I can talk to and get comprehensive answers.
 # 
-# Variabler for innstillinger øverst og prosedyrer i functions med argumenter fra 'else if statements' i bunn.
+# Variables for camera settings above and procedures in functions with argumens from `else if statements` below.
 
-# Filbaner
+# Paths
 basePATH=$HOME"/PiBoCa"
 #basePATH=$(pwd)
 pathDATE=`date "+%Y-%m"`
@@ -19,29 +19,29 @@ imgdataPATHdate=$basePATH"/"$imgdata"/"$pathDATE
 imgdataPATH=$basePATH"/"$imgdata""
 tmpPATH=$basePATH"/tmp"
 gpFileName=$imgdataPATH"/"$pathDATE"/"$momentDATE
-# Bilde: Navn og prefiks
+# Image: Name and prefix
 imgPREFIX=".jpg"
 imgTMP="tmp"$imgPREFIX
 imgLAST="last"$imgPREFIX
 imgCURR="curr"$imgPREFIX
 imgDIFF="diff"$imgPREFIX
-# Innstillinger
+# Settings
 sleepTIME="3"
-# Innstillinger for GraphicsMagick
+# Settings for GraphicsMagick
 # Input:  '$ gm convert   -geometry $gmSCALE   -modulate $gmMODULATE -colorize $gmCURRcolor $imgCURR $imgLAST'
 # Output: '$ gm convert   -geometry 40%        -modulate 130,0       -colorize 0,75,100     last.jpg last.jpg'
 # Input:  '$ gm composite -dissolve $gmOPACITY $imgLAST              $imgCURR               $imgDIFF'
 # Output: '$ gm composite -dissolve 50         last.jpg              curr.jpg               diff.jpg'
-gmLASTcolor="100,75,0" # Blått
-gmCURRcolor="0,75,100" # Rødt
+gmLASTcolor="100,75,0" # Blue
+gmCURRcolor="0,75,100" # Red
 gmSCALE="40%"
 gmMODULATE="130,0"
 gmOPACITY="50"
 
-# Instillinger for gPhoto2, se 'man page' - http://www.gphoto.org/doc/manual/ref-gphoto2-cli.html
-# Konfigurasjonen spesifikk for Canon PowerShot G9
-# '$ gphoto2 --list-config' for få liste over tilgjengelige konfigurasjoner for kamera
-# '$ gphoto2 --list-all-config' for å få valg og verdier fra kamera
+# Settings for gPhoto2, see 'man page' - http://www.gphoto.org/doc/manual/ref-gphoto2-cli.html
+# Configurations specific for Canon PowerShot G9
+# '$ gphoto2 --list-config' list available camera configurations
+# '$ gphoto2 --list-all-config' receive available settings from camera
 gphotoCONFIG="gphoto2 \
 --quiet \
 --set-config whitebalance=3 \

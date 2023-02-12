@@ -1,1 +1,1 @@
-Mappe med fotografier fra gPhoto2 lagres her, organiseres etter `YYYY-MM`.
+Folder with photos taken with `gPhoto2` - sorted after `YYYY-MM`.

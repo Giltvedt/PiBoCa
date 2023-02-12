@@ -79,7 +79,7 @@ photoAdjust() {
 photoShoot() {
 	# Kommando og argument for å ta bilde, kopier til tmp og lag skalert blå tint versjon til sammenligning for neste bilde.
 	$gphotoCONFIG --filename $gpFileName-$1$imgPREFIX > /dev/null 2>&1 && \
-	lastFILE=$(find $imgdataPATH -type f -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1) && \
+	lastFILE=$(find $imgdataPATH -type f -name "*.jpg" -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1) && \
 	gm convert -geometry $gmSCALE -modulate $gmMODULATE -colorize $gmLASTcolor $lastFILE $tmpPATH/$1-$imgLAST && \
 	cat $lastFILE
 
@@ -134,13 +134,13 @@ elif [[ "$@" == var ]]; then
 
 elif [[ "$@" == tester ]]; then
 	$gphotoCONFIG --filename $gpFileName-TEST$imgPREFIX && \
-	sisteFil=$(find $imgdataPATH -type f -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1) && \
-	cat $sisteFil
+	lastFILE=$(find $imgdataPATH -type f -name "*.jpg" -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1) && \
+	cat $lastFILE
 
 	# Test om kamera får tatt bildet og lagret det.
 
 elif [[ "$@" == siste ]]; then
-	lastFILE=$(find $imgdataPATH -type f -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1) && \
+	lastFILE=$(find $imgdataPATH -type f -name "*.jpg" -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1) && \
 	cat $lastFILE
 
 	# Få se siste bildet

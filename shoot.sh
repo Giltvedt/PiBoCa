@@ -111,6 +111,40 @@ elif [[ "$@" == serie ]]; then
 
 	# Idé - Få serie av bildene sendt til iPhone. Finn ut hvordan de 3 deles opp isteden for én fil - cat $gpFileName*-Front* && cat $gpFileName*-Side* && cat $gpFileName*-Bak*
 
+elif [[ $1 == Face ]] && [[ $2 == Front ]] || [[ $2 == Angle ]] || [[ $2 == Side ]]; then
+	$gphotoCONFIG --filename $tmpPATH/Face/$2-$imgTMP > /dev/null 2>&1 && \
+	gm convert -geometry $gmSCALE -modulate $gmMODULATE -colorize $gmCURRcolor $tmpPATH/Face/$2-$imgTMP $tmpPATH/Face/$2-$imgCURR && \
+	gm composite -dissolve $gmOPACITY $tmpPATH/Face/$2-$imgLAST $tmpPATH/Face/$2-$imgCURR $tmpPATH/Face/$2-$imgDIFF
+	cat $tmpPATH/Face/$2-$imgDIFF
+	
+	# Conditions to check command start with following word such "Face" first. Then check second word is "Front" or "Side". Those are primary for naming files.
+	# Line 1 - 'gphoto2' shoot photo to tmp folder.
+	# Line 2 - 'gm' for scale down image resolution, greyscale and colorize it red as reference to compare with previous photo.
+	# Line 3 - 'gm' for merge this current photo with previous photo below.
+	# Line 4 - 'cat' image as base64 to transfer it over SSH for output as photo at iPhone trought Shortcut-app. (Should make it as option)
+	# Done
+
+elif [[ $1 == Save ]] && [[ $2 == Body ]] && [[ $3 == Front ]] || [[ $3 == Side ]] || [[ $3 == Back ]]; then
+	# imageDATE=$momentDATE && \
+	gm convert -geometry $gmSCALE -modulate $gmMODULATE -colorize $gmLASTcolor $tmpPATH/$3-$imgTMP $tmpPATH/$3-$imgLAST && \
+	cp $tmpPATH/$3-$imgTMP $imgdataPATH/$momentDATE-$3$imgPREFIX
+
+	# Condition to check command start with following word such "Save" first. Then check second word is "Body". And third word as "Front", "Side" and "Back". 
+	# Line 1 - Save date and time when photo shoot, as variable. Use this when approved photos will be moved to other place.
+	# Line 2 - 'gm' for scale down image resolution, greyscale and colorize it as blye as reference to compare with next photo.
+	# Done
+
+elif [[ $1 == Save ]] && [[ $2 == Face ]] || [[ $3 == Front ]] || [[ $2 == Angle ]] || [[ $2 == Side ]]; then
+	# imageDATE=$momentDATE && \
+	gm convert -geometry $gmSCALE -modulate $gmMODULATE -colorize $gmLASTcolor $tmpPATH/Face/$3-$imgTMP $tmpPATH/Face/$3-$imgLAST && \
+	cp $tmpPATH/Face/$3-$imgTMP $imgdataPATH/Face-$3/$momentDATE-$2$imgPREFIX
+
+	# This should be optimized with above with similar function. Have to learn and test it out.
+	# Condition to check command start with following word such "Save" first. Then check second word is "Face". And third word as "Front" and "Side". 
+	# Line 1 - Save date and time when photo shoot, as variable. Use this when approved photos will be moved to other place.
+	# Line 2 - 'gm' for scale down image resolution, greyscale and colorize it as blye as reference to compare with next photo.
+	# Done
+
 elif [[ "$@" == var ]]; then
 	echo "- basePATH:         "$basePATH
 	echo "- pathDATE:         "$pathDATE
